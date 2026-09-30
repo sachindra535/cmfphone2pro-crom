@@ -1,0 +1,1119 @@
+<!DOCTYPE html><html class="dark" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>CMF Phone 2 Pro (galaga) // Community Hub</title>
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,300..900;1,300..900&amp;family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&amp;family=Space+Grotesk:wght@300..700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DotGothic16&amp;family=Silkscreen:wght@400;700&amp;display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "background": "#121316",
+            "surface-dim": "#121316",
+            "surface-container-high": "#292a2d",
+            "secondary-fixed": "#e3e3de",
+            "on-tertiary-fixed": "#181c1f",
+            "on-error-container": "#ffdad6",
+            "on-secondary-container": "#b9b8b4",
+            "on-primary": "#5a1c00",
+            "surface-bright": "#38393c",
+            "outline": "#ab897d",
+            "on-primary-container": "#531900",
+            "outline-variant": "#5b4137",
+            "on-tertiary": "#2d3134",
+            "surface-container-low": "#1b1b1f",
+            "primary-fixed-dim": "#ffb599",
+            "error": "#ffb4ab",
+            "tertiary": "#c4c7cb",
+            "secondary-container": "#484946",
+            "on-primary-fixed-variant": "#7f2b00",
+            "primary-fixed": "#ffdbce",
+            "surface-container-highest": "#343538",
+            "secondary": "#c7c7c2",
+            "on-tertiary-container": "#292d30",
+            "secondary-fixed-dim": "#c7c7c2",
+            "surface-container": "#1f1f23",
+            "surface-tint": "#ffb599",
+            "tertiary-fixed": "#e0e2e7",
+            "surface-variant": "#343538",
+            "on-secondary-fixed-variant": "#464744",
+            "primary": "#ffb599",
+            "on-error": "#690005",
+            "on-surface": "#e3e2e6",
+            "on-primary-fixed": "#370e00",
+            "surface-container-lowest": "#0d0e11",
+            "on-background": "#e3e2e6",
+            "tertiary-fixed-dim": "#c4c7cb",
+            "on-secondary": "#30312e",
+            "tertiary-container": "#919498",
+            "surface": "#121316",
+            "inverse-on-surface": "#2f3034",
+            "inverse-surface": "#e3e2e6",
+            "on-tertiary-fixed-variant": "#44474b",
+            "error-container": "#93000a",
+            "on-secondary-fixed": "#1b1c19",
+            "primary-container": "#ff5e00",
+            "inverse-primary": "#a63b00",
+            "on-surface-variant": "#e4bfb1"
+          },
+          borderRadius: {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          fontFamily: {
+            "display-xl": ["Space Grotesk", "sans-serif"],
+            "body-lg": ["Hanken Grotesk", "sans-serif"],
+            "body-sm": ["Hanken Grotesk", "sans-serif"],
+            "body-md": ["Hanken Grotesk", "sans-serif"],
+            "headline-lg": ["Space Grotesk", "sans-serif"],
+            "headline-md": ["Space Grotesk", "sans-serif"],
+            "label-mono-sm": ["JetBrains Mono", "monospace"],
+            "label-mono-lg": ["JetBrains Mono", "monospace"]
+          }
+        }
+      }
+    };
+  </script>
+<style>
+    @layer base {
+      html, body {
+        background-color: #121316;
+        color: #e3e2e6;
+        scroll-behavior: smooth;
+      }
+    }
+    body {
+      -webkit-font-smoothing: antialiased;
+    }
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #121316;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #292a2d;
+      border-radius: 3px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #ff5e00;
+    }
+
+    /* Nothing / CMF Dot-matrix & Hardware Glow Effects */
+    @keyframes cmf-pulse-glow {
+      0%, 100% {
+        box-shadow: 0 0 12px 1px rgba(255, 94, 0, 0.45);
+        opacity: 1;
+      }
+      50% {
+        box-shadow: 0 0 24px 3px rgba(255, 94, 0, 0.75);
+        opacity: 0.85;
+      }
+    }
+    .led-dot-active {
+      animation: cmf-pulse-glow 2.4s infinite ease-in-out;
+    }
+
+    @keyframes ambient-float {
+      0%, 100% {
+        transform: translate(0px, 0px) scale(1);
+      }
+      50% {
+        transform: translate(-10px, 12px) scale(1.05);
+      }
+    }
+    .ambient-glow-animate {
+      animation: ambient-float 8s ease-in-out infinite alternate;
+    }
+
+    .btn-cmf-primary {
+      position: relative;
+      overflow: hidden;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .btn-cmf-primary:hover {
+      box-shadow: 0 0 20px rgba(255, 94, 0, 0.45);
+    }
+    .btn-cmf-primary::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -60%;
+      width: 40%;
+      height: 200%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+      transform: rotate(25deg);
+      transition: all 0.6s ease;
+    }
+    .btn-cmf-primary:hover::after {
+      left: 120%;
+    }
+
+    /* Modal Animation Utilities */
+    .modal-backdrop-trans {
+      transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .modal-dialog-trans {
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md min-h-screen flex flex-col antialiased selection:bg-primary-container selection:text-on-primary-container">
+<!-- TOP RESPONSIVE HEADER -->
+<header class="sticky top-0 z-40 w-full border-b border-surface-container-high/60 bg-surface/85 backdrop-blur-xl transition-all">
+<div class="max-w-7xl mx-auto px-6 lg:px-12 h-20 flex items-center justify-between">
+<!-- Wordmark Logo -->
+<a class="flex items-center gap-3 group" href="#">
+<div class="w-9 h-9 rounded bg-surface-container-high flex items-center justify-center text-primary-container group-hover:bg-primary-container group-hover:text-white transition-all duration-300">
+<span class="material-symbols-outlined text-[20px]">terminal</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary-container led-dot-active"></span>
+<span class="font-headline-md text-[17px] font-bold tracking-wider uppercase text-on-surface">CMF <span class="text-primary-container">//</span> PHONE 2 PRO</span>
+</div>
+<span class="font-label-mono-sm text-[11px] text-on-surface-variant tracking-widest uppercase">CODENAME: galaga</span>
+</div>
+</a>
+<!-- Desktop Navigation Menu -->
+
+<!-- Desktop Action Bar & Mobile Toggle -->
+<div class="flex items-center gap-4">
+<a class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded bg-surface-container hover:bg-surface-container-high hover:border-primary-container/50 border border-outline-variant/40 text-xs font-label-mono-sm uppercase text-on-surface hover:text-primary transition-all duration-200" href="https://github.com" rel="noreferrer" target="_blank">
+<span class="material-symbols-outlined text-[16px]">code</span>
+<span class="">GitHub</span>
+<span class="material-symbols-outlined text-[14px]">north_east</span>
+</a>
+<!-- Mobile Menu Button -->
+<button aria-label="Toggle navigation menu" class="md:hidden w-10 h-10 rounded bg-surface-container-high flex items-center justify-center text-on-surface hover:text-primary-container transition-colors" id="mobile-toggle">
+<span class="material-symbols-outlined text-[22px]">menu</span>
+</button>
+</div>
+</div>
+<!-- Mobile Dropdown Navigation -->
+<div class="hidden md:hidden border-t border-surface-container-high bg-surface-container-low px-6 py-4 flex flex-col gap-3 font-label-mono-sm uppercase text-xs" id="mobile-menu">
+<a class="py-2 text-primary" href="#hero">01. Home</a>
+<a class="py-2 text-on-surface-variant hover:text-on-surface" href="#specs">02. Specifications</a>
+<a class="py-2 text-on-surface-variant hover:text-on-surface" href="#custom-roms">03. Custom ROMs Hub</a>
+<a class="py-2 text-primary-container flex items-center justify-between" href="https://github.com" target="_blank">
+<span class="">GitHub Repositories</span>
+<span class="material-symbols-outlined text-[16px]">north_east</span>
+</a>
+</div>
+</header>
+<!-- MAIN CONTENT CONTAINER -->
+<main class="flex-1 w-full">
+<!-- CINEMATIC WIDESCREEN HERO SECTION -->
+<section class="relative w-full overflow-hidden border-b border-surface-container-high/40 pt-8 pb-16 lg:py-24" id="hero">
+<!-- Subtle ambient lighting glows with industrial breathing animation -->
+<div class="absolute -top-24 left-1/4 w-[500px] h-[500px] bg-primary-container/10 blur-[130px] rounded-full pointer-events-none ambient-glow-animate"></div>
+<div class="absolute bottom-0 right-10 w-[420px] h-[420px] bg-primary/10 blur-[120px] rounded-full pointer-events-none ambient-glow-animate" style="animation-delay: -3s;"></div>
+<div class="max-w-7xl mx-auto px-6 lg:px-12">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+<!-- Left Column: Editorial Device Info & Quick Spec Matrix -->
+<div class="lg:col-span-7 flex flex-col justify-center space-y-6 lg:space-y-8 z-10">
+<!-- Badge & Community Indicator -->
+<div class="flex flex-wrap items-center gap-3">
+<span class="inline-flex items-center gap-2 px-3 py-1 rounded bg-surface-container-high border border-outline-variant/40 font-label-mono-sm text-xs text-primary uppercase tracking-wider">
+<span class="w-2 h-2 rounded-full bg-primary-container led-dot-active"></span>
+                COMMUNITY MAINTAINED // 2026
+              </span>
+<span class="font-label-mono-sm text-xs text-on-surface-variant tracking-widest uppercase">
+                CODENAME: <strong class="text-on-surface font-semibold">galaga</strong>
+</span>
+</div>
+<!-- Title & Pitch -->
+<div class="space-y-3">
+<h1 class="font-display-xl text-4xl sm:text-6xl xl:text-7xl font-bold uppercase tracking-tight text-on-surface leading-[1.05]">
+                CMF <span class="text-primary-container">PHONE 2</span> PRO
+              </h1>
+<p class="font-body-lg text-base sm:text-lg lg:text-xl text-on-surface-variant max-w-2xl leading-relaxed">
+                The open-source development ecosystem for the CMF Phone 2 Pro (<span class="font-label-mono-sm text-primary">galaga</span>). Custom kernels, vanilla AOSP, unified hardware dial drivers, and high-performance ROMs.
+              </p>
+</div>
+<!-- Primary CTAs -->
+<div class="flex flex-wrap items-center gap-4 pt-2">
+<a class="btn-cmf-primary px-7 py-3.5 rounded bg-primary-container hover:bg-primary-container/90 text-on-primary-container font-headline-md text-sm font-bold tracking-wider uppercase transition-all shadow-lg shadow-primary-container/20 flex items-center gap-2.5 active:scale-95 cursor-pointer" href="#custom-roms">
+<span class="material-symbols-outlined text-[20px]">download</span>
+                Explore ROMs
+              </a>
+<a class="px-7 py-3.5 rounded bg-surface-container-high hover:bg-surface-container-highest hover:border-primary-container/40 border border-outline-variant/40 text-on-surface font-headline-md text-sm font-semibold tracking-wider uppercase transition-all flex items-center gap-2.5 active:scale-95 cursor-pointer" href="#specs">
+<span class="material-symbols-outlined text-[20px]">tune</span>
+                View Specs
+              </a>
+</div>
+<!-- Integrated Specs Grid -->
+<div class="pt-4 border-t border-surface-container-high/60">
+<div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+<div class="p-3.5 rounded bg-surface-container-low border border-surface-container-high/70 hover:border-primary-container/50 hover:bg-surface-container transition-all flex flex-col gap-1 group">
+<div class="flex items-center gap-1.5 text-primary-container text-xs font-label-mono-sm uppercase">
+<span class="material-symbols-outlined text-[16px] group-hover:rotate-12 transition-transform">memory</span> Chipset
+                  </div>
+<span class="font-headline-md text-xs sm:text-sm font-semibold text-on-surface">Dimensity 7300-Pro</span>
+<span class="font-label-mono-sm text-[10px] text-on-surface-variant">4nm Octa-core 2.5GHz</span>
+</div>
+<div class="p-3.5 rounded bg-surface-container-low border border-surface-container-high/70 hover:border-primary-container/50 hover:bg-surface-container transition-all flex flex-col gap-1 group">
+<div class="flex items-center gap-1.5 text-primary-container text-xs font-label-mono-sm uppercase">
+<span class="material-symbols-outlined text-[16px] group-hover:scale-110 transition-transform">screenshot</span> Display
+                  </div>
+<span class="font-headline-md text-xs sm:text-sm font-semibold text-on-surface">6.67" Super AMOLED</span>
+<span class="font-label-mono-sm text-[10px] text-on-surface-variant">120Hz • 2000 Nits Peak</span>
+</div>
+<div class="p-3.5 rounded bg-surface-container-low border border-surface-container-high/70 hover:border-primary-container/50 hover:bg-surface-container transition-all flex flex-col gap-1 group">
+<div class="flex items-center gap-1.5 text-primary-container text-xs font-label-mono-sm uppercase">
+<span class="material-symbols-outlined text-[16px] group-hover:rotate-45 transition-transform">tune</span> Hardware Dial
+                  </div>
+<span class="font-headline-md text-xs sm:text-sm font-semibold text-on-surface">Modular Rotary Dial</span>
+<span class="font-label-mono-sm text-[10px] text-on-surface-variant">sysfs Remappable Lugs</span>
+</div>
+<div class="p-3.5 rounded bg-surface-container-low border border-surface-container-high/70 hover:border-primary-container/50 hover:bg-surface-container transition-all flex flex-col gap-1 group">
+<div class="flex items-center gap-1.5 text-primary-container text-xs font-label-mono-sm uppercase">
+<span class="material-symbols-outlined text-[16px] group-hover:scale-110 transition-transform">photo_camera</span> Camera Sensor
+                  </div>
+<span class="font-headline-md text-xs sm:text-sm font-semibold text-on-surface">50MP Sony Dual RAW10</span>
+<span class="font-label-mono-sm text-[10px] text-on-surface-variant">Full Camera2 API Level 3</span>
+</div>
+<div class="p-3.5 rounded bg-surface-container-low border border-surface-container-high/70 hover:border-primary-container/50 hover:bg-surface-container transition-all flex flex-col gap-1 col-span-2 sm:col-span-2 group">
+<div class="flex items-center gap-1.5 text-primary-container text-xs font-label-mono-sm uppercase">
+<span class="material-symbols-outlined text-[16px] group-hover:scale-110 transition-transform">battery_charging_full</span> Power System
+                  </div>
+<div class="flex items-center justify-between">
+<span class="font-headline-md text-xs sm:text-sm font-semibold text-on-surface">5000 mAh High-Density</span>
+<span class="font-label-mono-sm text-xs text-primary font-bold">33W Fast Charge + 5W Reverse</span>
+</div>
+<span class="font-label-mono-sm text-[10px] text-on-surface-variant">2-day idle standby with custom schedutil governor</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Authentic CMF Phone 2 Pro Showcase Image -->
+<div class="lg:col-span-5 flex justify-center items-center relative">
+<!-- Studio Backlight Circle -->
+<div class="absolute inset-0 m-auto w-72 sm:w-96 h-72 sm:h-96 rounded-full bg-primary-container/15 border border-outline-variant/30 blur-3xl ambient-glow-animate"></div>
+<!-- Frame Container with industrial corners -->
+<div class="relative w-full max-w-md lg:max-w-none flex flex-col items-center">
+<div class="relative group p-4 sm:p-6 rounded-xl bg-surface-container-low/90 border border-surface-container-high hover:border-primary-container/40 shadow-2xl backdrop-blur-md transition-all duration-500">
+<!-- Corner Hardware Accents -->
+<span class="absolute top-2 left-2 text-[10px] font-label-mono-sm text-outline-variant select-none transition-colors group-hover:text-primary-container">+</span>
+<span class="absolute top-2 right-2 text-[10px] font-label-mono-sm text-outline-variant select-none transition-colors group-hover:text-primary-container">+</span>
+<span class="absolute bottom-2 left-2 text-[10px] font-label-mono-sm text-outline-variant select-none transition-colors group-hover:text-primary-container">+</span>
+<span class="absolute bottom-2 right-2 text-[10px] font-label-mono-sm text-outline-variant select-none transition-colors group-hover:text-primary-container">+</span>
+<!-- Top Telemetry Strip -->
+<div class="flex items-center justify-between font-label-mono-sm text-[11px] text-on-surface-variant pb-3 mb-2 border-b border-surface-container-high">
+<span class="flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container led-dot-active"></span>
+                    DEVICE: galaga
+                  </span>
+
+</div>
+<!-- Phone Image Element -->
+<div class="relative overflow-hidden rounded-lg flex items-center justify-center bg-black/40">
+<img alt="Authentic CMF Phone 2 Pro in vibrant orange modular design with visible mechanical screws, dual circular camera housing, and signature rotary dial knob" class="w-full h-auto max-h-[500px] object-contain transform transition-transform duration-700 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDgWaKsB35pRgHpkHdsKJjpuINImhtDeE4kiD2vVEgrHX_4ulpgSAcIuygwwEKC_QrBbKFG8AOjtxnx_Cabo8oYzbiwL_bpW5YHQbAmuBJE2oJVrii1gtUuuFYL4mI1NSmgwlQzHhj1emntsVM2pUs8NMoPyo6yeB7BF2W48pB8rdVuJ9ArYxWr9nxzplVAXIrCLiHSOVShuDN00HKds1guOvqNuIRnyCJsjZyxmfaC4lHDmJIwucETnqqjoTVlaQ956xg">
+</div>
+<!-- Bottom Floating Spec Overlay -->
+<div class="mt-3 pt-2.5 flex items-center justify-between border-t border-surface-container-high text-xs font-label-mono-sm text-on-surface-variant">
+
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- DEVICE SPECIFICATIONS SECTION (TECHNICAL EDITORIAL STRIP/GRID) -->
+<section class="w-full py-16 lg:py-24 bg-surface-container-lowest/60 border-b border-surface-container-high/60" id="specs">
+<div class="max-w-7xl mx-auto px-6 lg:px-12">
+<!-- Section Header -->
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+<div>
+<div class="flex items-center gap-2 mb-1.5">
+<span class="w-2.5 h-2.5 rounded bg-primary-container led-dot-active"></span>
+<span class="font-label-mono-sm text-xs uppercase tracking-widest text-primary-container font-semibold">HARDWARE ARCHITECTURE</span>
+</div>
+<h2 class="font-headline-lg text-3xl sm:text-4xl uppercase tracking-tight text-on-surface font-bold">
+              Device Specifications
+            </h2>
+</div>
+
+</div>
+<!-- Spec Grid 6 Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- 1. Chipset -->
+<div class="p-6 rounded bg-surface-container-low border border-surface-container-high hover:border-primary-container/60 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group shadow-sm hover:shadow-lg hover:shadow-primary-container/5">
+<div>
+<div class="flex items-center justify-between text-on-surface-variant mb-4">
+<span class="font-label-mono-sm text-xs text-primary-container">[SYS.01]</span>
+<span class="material-symbols-outlined text-primary text-[22px] group-hover:scale-110 transition-transform">memory</span>
+</div>
+<h3 class="font-headline-md text-lg text-on-surface font-bold mb-1 group-hover:text-primary transition-colors">SoC &amp; Processor</h3>
+<p class="font-body-sm text-sm text-on-surface-variant leading-relaxed">
+                MediaTek Dimensity 7300-Pro manufactured on TSMC's 4nm node. 4x Arm Cortex-A78 up to 2.5GHz + 4x Cortex-A55 power efficiency cores with Mali-G615 GPU.
+              </p>
+</div>
+<div class="mt-6 pt-3 border-t border-surface-container-high flex items-center justify-between font-label-mono-sm text-xs">
+<span class="text-on-surface-variant">KERNEL ARCH</span>
+<span class="text-primary font-mono">arm64-v8a</span>
+</div>
+</div>
+<!-- 2. Display -->
+<div class="p-6 rounded bg-surface-container-low border border-surface-container-high hover:border-primary-container/60 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group shadow-sm hover:shadow-lg hover:shadow-primary-container/5">
+<div>
+<div class="flex items-center justify-between text-on-surface-variant mb-4">
+<span class="font-label-mono-sm text-xs text-primary-container">[SYS.02]</span>
+<span class="material-symbols-outlined text-primary text-[22px] group-hover:scale-110 transition-transform">smartphone</span>
+</div>
+<h3 class="font-headline-md text-lg text-on-surface font-bold mb-1 group-hover:text-primary transition-colors">Super AMOLED Panel</h3>
+<p class="font-body-sm text-sm text-on-surface-variant leading-relaxed">
+                6.67-inch flexible AMOLED with 120Hz adaptive refresh rate (30/60/90/120Hz steps), 2000 nits peak brightness, 960Hz PWM dimming, and HDR10+ certified.
+              </p>
+</div>
+<div class="mt-6 pt-3 border-t border-surface-container-high flex items-center justify-between font-label-mono-sm text-xs">
+<span class="text-on-surface-variant">RESOLUTION</span>
+<span class="text-primary font-mono">1080 x 2400 (FHD+)</span>
+</div>
+</div>
+<!-- 3. Modular Dial -->
+<div class="p-6 rounded bg-surface-container-low border border-surface-container-high hover:border-primary-container/60 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group shadow-sm hover:shadow-lg hover:shadow-primary-container/5">
+<div>
+<div class="flex items-center justify-between text-on-surface-variant mb-4">
+<span class="font-label-mono-sm text-xs text-primary-container">[SYS.03]</span>
+<span class="material-symbols-outlined text-primary-container text-[22px] group-hover:rotate-45 transition-transform">tune</span>
+</div>
+<h3 class="font-headline-md text-lg text-on-surface font-bold mb-1 group-hover:text-primary transition-colors">Rotary Hardware Dial</h3>
+<p class="font-body-sm text-sm text-on-surface-variant leading-relaxed">
+                Modular tactile mechanical dial with integrated click switch. Complete sysfs driver exposure for mapping to custom actions, volume stepping, or flashlight dimmer.
+              </p>
+</div>
+<div class="mt-6 pt-3 border-t border-surface-container-high flex items-center justify-between font-label-mono-sm text-xs">
+<span class="text-on-surface-variant">DRIVER NODE</span>
+<span class="text-primary-container font-mono text-[11px]">/sys/class/rotary_dial</span>
+</div>
+</div>
+<!-- 4. Camera Setup -->
+<div class="p-6 rounded bg-surface-container-low border border-surface-container-high hover:border-primary-container/60 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group shadow-sm hover:shadow-lg hover:shadow-primary-container/5">
+<div>
+<div class="flex items-center justify-between text-on-surface-variant mb-4">
+<span class="font-label-mono-sm text-xs text-primary-container">[SYS.04]</span>
+<span class="material-symbols-outlined text-primary text-[22px] group-hover:scale-110 transition-transform">photo_camera</span>
+</div>
+<h3 class="font-headline-md text-lg text-on-surface font-bold mb-1 group-hover:text-primary transition-colors">50MP Sony Optics</h3>
+<p class="font-body-sm text-sm text-on-surface-variant leading-relaxed">
+                50MP f/1.8 main sensor paired with secondary portrait depth unit. Full Camera2 API Level 3 support with RAW10 Bayer stream capture without third-party vendor bloat.
+              </p>
+</div>
+<div class="mt-6 pt-3 border-t border-surface-container-high flex items-center justify-between font-label-mono-sm text-xs">
+<span class="text-on-surface-variant">GCAM STATUS</span>
+<span class="text-primary">Full Support (Zero Tint)</span>
+</div>
+</div>
+<!-- 5. Battery & Power -->
+<div class="p-6 rounded bg-surface-container-low border border-surface-container-high hover:border-primary-container/60 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group shadow-sm hover:shadow-lg hover:shadow-primary-container/5">
+<div>
+<div class="flex items-center justify-between text-on-surface-variant mb-4">
+<span class="font-label-mono-sm text-xs text-primary-container">[SYS.05]</span>
+<span class="material-symbols-outlined text-primary text-[22px] group-hover:scale-110 transition-transform">battery_charging_full</span>
+</div>
+<h3 class="font-headline-md text-lg text-on-surface font-bold mb-1 group-hover:text-primary transition-colors">Battery &amp; Charging</h3>
+<p class="font-body-sm text-sm text-on-surface-variant leading-relaxed">
+                5000 mAh high-cycle life cell with 33W USB Power Delivery 3.0. Supports 5W wired reverse charging for accessories like earphones and wearables on-the-go.
+              </p>
+</div>
+<div class="mt-6 pt-3 border-t border-surface-container-high flex items-center justify-between font-label-mono-sm text-xs">
+<span class="text-on-surface-variant">INTERFACE</span>
+<span class="text-primary">USB Type-C 2.0 OTG</span>
+</div>
+</div>
+<!-- 6. Connectivity -->
+<div class="p-6 rounded bg-surface-container-low border border-surface-container-high hover:border-primary-container/60 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group shadow-sm hover:shadow-lg hover:shadow-primary-container/5">
+<div>
+<div class="flex items-center justify-between text-on-surface-variant mb-4">
+<span class="font-label-mono-sm text-xs text-primary-container">[SYS.06]</span>
+<span class="material-symbols-outlined text-primary text-[22px] group-hover:scale-110 transition-transform">wifi</span>
+</div>
+<h3 class="font-headline-md text-lg text-on-surface font-bold mb-1 group-hover:text-primary transition-colors">Radios &amp; Security</h3>
+<p class="font-body-sm text-sm text-on-surface-variant leading-relaxed">
+                Dual 5G Standalone (SA/NSA), Wi-Fi 6 (802.11ax), Bluetooth 5.3 LE, NFC, in-display optical fingerprint scanner, and independent hardware unlock slot.
+              </p>
+</div>
+<div class="mt-6 pt-3 border-t border-surface-container-high flex items-center justify-between font-label-mono-sm text-xs">
+<span class="text-on-surface-variant">BOOTLOADER</span>
+<span class="text-primary font-bold">Fastboot Unlocked</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- CUSTOM ROMS HUB (SLEEK DESKTOP/MOBILE EDITORIAL LIST - JSON POWERED) -->
+<section class="w-full py-16 lg:py-24" id="custom-roms">
+<div class="max-w-7xl mx-auto px-6 lg:px-12">
+<!-- Header + Filters -->
+<div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-8 border-b border-surface-container-high">
+<div>
+<div class="flex items-center gap-2 mb-1.5">
+<span class="w-2.5 h-2.5 rounded-full bg-primary-container led-dot-active"></span>
+<span class="font-label-mono-sm text-xs uppercase tracking-widest text-primary-container font-semibold">FIRMWARE REPOSITORIES // galaga</span>
+</div>
+<h2 class="font-headline-lg text-3xl sm:text-4xl uppercase tracking-tight text-on-surface font-bold">Available Custom ROMs</h2>
+
+</div>
+<!-- Filter Chips -->
+<div class="flex flex-wrap items-center gap-2 font-label-mono-sm text-xs uppercase">
+
+
+
+
+</div>
+</div>
+<!-- Desktop Table Header (visible on lg screens) -->
+<div class="hidden lg:grid grid-cols-12 gap-4 px-6 py-4 mt-6 font-label-mono-sm text-xs uppercase text-on-surface-variant bg-surface-container-low rounded border border-surface-container-high">
+<div class="col-span-4">ROM &amp; Maintainer</div>
+<div class="col-span-2">Android Ver</div>
+<div class="col-span-2">Build Date / Patch</div>
+<div class="col-span-1">Size</div>
+<div class="col-span-3 text-right">Actions</div>
+</div>
+<!-- Dynamic Container for Custom ROM Cards -->
+<div class="flex flex-col gap-4 mt-4" id="roms-list-container"><div class="p-5 rounded bg-surface-container-low border border-surface-container-high hover:border-primary-container/60 hover:bg-surface-container/70 transition-all duration-300 flex flex-col gap-4 shadow-sm hover:shadow-lg hover:shadow-primary-container/5">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-center">
+              
+              <!-- ROM & Maintainer -->
+              <div class="lg:col-span-4 flex items-center gap-3.5">
+                <div class="w-11 h-11 rounded bg-surface-container-high flex items-center justify-center font-headline-md text-base font-bold text-primary-container border border-surface-container-highest group-hover:scale-105 transition-transform">
+                  E
+                </div>
+                <div class="flex flex-col">
+                  <div class="flex items-center gap-2">
+                    <h3 class="font-headline-md text-base text-on-surface font-bold">Evolution X</h3>
+                    <span class="px-1.5 py-0.5 rounded bg-surface-container-highest text-primary font-label-mono-sm text-[10px] uppercase font-bold">v10.3</span>
+                  </div>
+                  <span class="font-body-sm text-xs text-on-surface-variant">Maintainer: <strong class="text-on-surface font-medium">JoeyH</strong></span>
+                </div>
+              </div>
+
+              <!-- Android Version -->
+              <div class="lg:col-span-2 flex items-center gap-2">
+                <span class="lg:hidden font-label-mono-sm text-xs text-on-surface-variant uppercase">Version:</span>
+                <span class="px-2.5 py-1 rounded bg-surface-container font-label-mono-sm text-xs text-on-surface font-semibold">
+                  Android 16
+                </span>
+                <span class="font-label-mono-sm text-[10px] uppercase text-primary">Official</span>
+              </div>
+
+              <!-- Build Date & Security Patch -->
+              <div class="lg:col-span-2 flex flex-col font-label-mono-sm text-xs text-on-surface-variant">
+                <span class="">Date: <strong class="text-on-surface font-medium">2026-09-30</strong></span>
+                <span class="text-[11px]">Patch: Sep 2026</span>
+              </div>
+
+              <!-- File Size -->
+              <div class="lg:col-span-1 font-label-mono-sm text-xs text-on-surface-variant">
+                <span class="lg:hidden">Size: </span>2.4 GB
+              </div>
+
+              <!-- Action Buttons -->
+              <div class="lg:col-span-3 flex items-center justify-end gap-2.5 pt-2 lg:pt-0">
+                <button class="toggle-cl-btn px-3 py-2 rounded bg-surface-container hover:bg-surface-container-high text-on-surface font-label-mono-sm text-xs uppercase flex items-center gap-1 transition-all active:scale-95 cursor-pointer" data-id="evo-x">
+                  <span class="">Changelog</span>
+                  <span class="material-symbols-outlined text-[16px] cl-icon transition-transform">expand_more</span>
+                </button>
+                <button onclick="window.openRomModal('evo-x')" class="modal-open-btn btn-cmf-primary px-4 py-2 rounded bg-primary-container hover:bg-primary-container/90 text-on-primary-container font-headline-md text-xs uppercase font-bold tracking-wider flex items-center gap-1.5 transition-all active:scale-95 shadow-md shadow-primary-container/20 cursor-pointer" data-id="evo-x">
+                  <span class="material-symbols-outlined text-[16px]">download</span>
+                  <span class="">Download</span>
+                </button>
+              </div>
+
+            </div>
+
+            <!-- Expandable Changelog Inset -->
+            <div id="cl-box-evo-x" class="hidden border-t border-surface-container-high/60 pt-3 mt-1">
+              <div class="p-3.5 rounded bg-surface-container-lowest font-body-sm text-xs text-on-surface-variant flex flex-col gap-1.5 border border-surface-container-high/40">
+                <span class="font-label-mono-sm text-[10px] uppercase text-primary font-bold">RELEASE NOTES // BUILD HIGHLIGHTS</span>
+                <div class="flex items-start gap-2"><span class="text-primary-container font-bold">›</span><span class="">Upstream Android 16 QPR1 r14 merge</span></div><div class="flex items-start gap-2"><span class="text-primary-container font-bold">›</span><span class="">Custom hardware dial mapped to volume and camera ISO stops</span></div><div class="flex items-start gap-2"><span class="text-primary-container font-bold">›</span><span class="">Target codename galaga unified device tree integration</span></div><div class="flex items-start gap-2"><span class="text-primary-container font-bold">›</span><span class="">SafetyNet / Play Integrity MEETS_STRONG verified</span></div>
+              </div>
+            </div>
+          </div><div class="p-5 rounded bg-surface-container-low border border-surface-container-high hover:border-primary-container/60 hover:bg-surface-container/70 transition-all duration-300 flex flex-col gap-4 shadow-sm hover:shadow-lg hover:shadow-primary-container/5">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-center">
+              
+              <!-- ROM & Maintainer -->
+              <div class="lg:col-span-4 flex items-center gap-3.5">
+                <div class="w-11 h-11 rounded bg-surface-container-high flex items-center justify-center font-headline-md text-base font-bold text-primary-container border border-surface-container-highest group-hover:scale-105 transition-transform">
+                  L
+                </div>
+                <div class="flex flex-col">
+                  <div class="flex items-center gap-2">
+                    <h3 class="font-headline-md text-base text-on-surface font-bold">LineageOS 22.1</h3>
+                    <span class="px-1.5 py-0.5 rounded bg-surface-container-highest text-primary font-label-mono-sm text-[10px] uppercase font-bold">v22.1</span>
+                  </div>
+                  <span class="font-body-sm text-xs text-on-surface-variant">Maintainer: <strong class="text-on-surface font-medium">GalagaDev Team</strong></span>
+                </div>
+              </div>
+
+              <!-- Android Version -->
+              <div class="lg:col-span-2 flex items-center gap-2">
+                <span class="lg:hidden font-label-mono-sm text-xs text-on-surface-variant uppercase">Version:</span>
+                <span class="px-2.5 py-1 rounded bg-surface-container font-label-mono-sm text-xs text-on-surface font-semibold">
+                  Android 15
+                </span>
+                <span class="font-label-mono-sm text-[10px] uppercase text-on-surface-variant">Unofficial</span>
+              </div>
+
+              <!-- Build Date & Security Patch -->
+              <div class="lg:col-span-2 flex flex-col font-label-mono-sm text-xs text-on-surface-variant">
+                <span class="">Date: <strong class="text-on-surface font-medium">2026-09-22</strong></span>
+                <span class="text-[11px]">Patch: Sep 2026</span>
+              </div>
+
+              <!-- File Size -->
+              <div class="lg:col-span-1 font-label-mono-sm text-xs text-on-surface-variant">
+                <span class="lg:hidden">Size: </span>1.8 GB
+              </div>
+
+              <!-- Action Buttons -->
+              <div class="lg:col-span-3 flex items-center justify-end gap-2.5 pt-2 lg:pt-0">
+                <button class="toggle-cl-btn px-3 py-2 rounded bg-surface-container hover:bg-surface-container-high text-on-surface font-label-mono-sm text-xs uppercase flex items-center gap-1 transition-all active:scale-95 cursor-pointer" data-id="lineage-22">
+                  <span class="">Changelog</span>
+                  <span class="material-symbols-outlined text-[16px] cl-icon transition-transform">expand_more</span>
+                </button>
+                <button onclick="window.openRomModal('lineage-22')" class="modal-open-btn btn-cmf-primary px-4 py-2 rounded bg-primary-container hover:bg-primary-container/90 text-on-primary-container font-headline-md text-xs uppercase font-bold tracking-wider flex items-center gap-1.5 transition-all active:scale-95 shadow-md shadow-primary-container/20 cursor-pointer" data-id="lineage-22">
+                  <span class="material-symbols-outlined text-[16px]">download</span>
+                  <span class="">Download</span>
+                </button>
+              </div>
+
+            </div>
+
+            <!-- Expandable Changelog Inset -->
+            <div id="cl-box-lineage-22" class="hidden border-t border-surface-container-high/60 pt-3 mt-1">
+              <div class="p-3.5 rounded bg-surface-container-lowest font-body-sm text-xs text-on-surface-variant flex flex-col gap-1.5 border border-surface-container-high/40">
+                <span class="font-label-mono-sm text-[10px] uppercase text-primary font-bold">RELEASE NOTES // BUILD HIGHLIGHTS</span>
+                <div class="flex items-start gap-2"><span class="text-primary-container font-bold">›</span><span class="">Pure vanilla LineageOS tree without preinstalled GApps</span></div><div class="flex items-start gap-2"><span class="text-primary-container font-bold">›</span><span class="">Direct hardware dial sysfs kernel bindings</span></div><div class="flex items-start gap-2"><span class="text-primary-container font-bold">›</span><span class="">Standby battery consumption reduced by 14%</span></div>
+              </div>
+            </div>
+          </div><div class="p-5 rounded bg-surface-container-low border border-surface-container-high hover:border-primary-container/60 hover:bg-surface-container/70 transition-all duration-300 flex flex-col gap-4 shadow-sm hover:shadow-lg hover:shadow-primary-container/5">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-center">
+              
+              <!-- ROM & Maintainer -->
+              <div class="lg:col-span-4 flex items-center gap-3.5">
+                <div class="w-11 h-11 rounded bg-surface-container-high flex items-center justify-center font-headline-md text-base font-bold text-primary-container border border-surface-container-highest group-hover:scale-105 transition-transform">
+                  P
+                </div>
+                <div class="flex flex-col">
+                  <div class="flex items-center gap-2">
+                    <h3 class="font-headline-md text-base text-on-surface font-bold">PixelOS</h3>
+                    <span class="px-1.5 py-0.5 rounded bg-surface-container-highest text-primary font-label-mono-sm text-[10px] uppercase font-bold">v15.0</span>
+                  </div>
+                  <span class="font-body-sm text-xs text-on-surface-variant">Maintainer: <strong class="text-on-surface font-medium">PixelTeam</strong></span>
+                </div>
+              </div>
+
+              <!-- Android Version -->
+              <div class="lg:col-span-2 flex items-center gap-2">
+                <span class="lg:hidden font-label-mono-sm text-xs text-on-surface-variant uppercase">Version:</span>
+                <span class="px-2.5 py-1 rounded bg-surface-container font-label-mono-sm text-xs text-on-surface font-semibold">
+                  Android 15
+                </span>
+                <span class="font-label-mono-sm text-[10px] uppercase text-primary">Official</span>
+              </div>
+
+              <!-- Build Date & Security Patch -->
+              <div class="lg:col-span-2 flex flex-col font-label-mono-sm text-xs text-on-surface-variant">
+                <span class="">Date: <strong class="text-on-surface font-medium">2026-09-18</strong></span>
+                <span class="text-[11px]">Patch: Aug 2026</span>
+              </div>
+
+              <!-- File Size -->
+              <div class="lg:col-span-1 font-label-mono-sm text-xs text-on-surface-variant">
+                <span class="lg:hidden">Size: </span>2.1 GB
+              </div>
+
+              <!-- Action Buttons -->
+              <div class="lg:col-span-3 flex items-center justify-end gap-2.5 pt-2 lg:pt-0">
+                <button class="toggle-cl-btn px-3 py-2 rounded bg-surface-container hover:bg-surface-container-high text-on-surface font-label-mono-sm text-xs uppercase flex items-center gap-1 transition-all active:scale-95 cursor-pointer" data-id="pixel-os">
+                  <span class="">Changelog</span>
+                  <span class="material-symbols-outlined text-[16px] cl-icon transition-transform">expand_more</span>
+                </button>
+                <button onclick="window.openRomModal('pixel-os')" class="modal-open-btn btn-cmf-primary px-4 py-2 rounded bg-primary-container hover:bg-primary-container/90 text-on-primary-container font-headline-md text-xs uppercase font-bold tracking-wider flex items-center gap-1.5 transition-all active:scale-95 shadow-md shadow-primary-container/20 cursor-pointer" data-id="pixel-os">
+                  <span class="material-symbols-outlined text-[16px]">download</span>
+                  <span class="">Download</span>
+                </button>
+              </div>
+
+            </div>
+
+            <!-- Expandable Changelog Inset -->
+            <div id="cl-box-pixel-os" class="hidden border-t border-surface-container-high/60 pt-3 mt-1">
+              <div class="p-3.5 rounded bg-surface-container-lowest font-body-sm text-xs text-on-surface-variant flex flex-col gap-1.5 border border-surface-container-high/40">
+                <span class="font-label-mono-sm text-[10px] uppercase text-primary font-bold">RELEASE NOTES // BUILD HIGHLIGHTS</span>
+                <div class="flex items-start gap-2"><span class="text-primary-container font-bold">›</span><span class="">Pixel 9 Pro feature parity with Sony RAW10 camera calibration</span></div><div class="flex items-start gap-2"><span class="text-primary-container font-bold">›</span><span class="">Google Photos backup spoofing support included</span></div><div class="flex items-start gap-2"><span class="text-primary-container font-bold">›</span><span class="">Smooth adaptive refresh rate locking (30/60/90/120Hz)</span></div>
+              </div>
+            </div>
+          </div><div class="p-5 rounded bg-surface-container-low border border-surface-container-high hover:border-primary-container/60 hover:bg-surface-container/70 transition-all duration-300 flex flex-col gap-4 shadow-sm hover:shadow-lg hover:shadow-primary-container/5">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-center">
+              
+              <!-- ROM & Maintainer -->
+              <div class="lg:col-span-4 flex items-center gap-3.5">
+                <div class="w-11 h-11 rounded bg-surface-container-high flex items-center justify-center font-headline-md text-base font-bold text-primary-container border border-surface-container-highest group-hover:scale-105 transition-transform">
+                  R
+                </div>
+                <div class="flex flex-col">
+                  <div class="flex items-center gap-2">
+                    <h3 class="font-headline-md text-base text-on-surface font-bold">RisingOS Revived</h3>
+                    <span class="px-1.5 py-0.5 rounded bg-surface-container-highest text-primary font-label-mono-sm text-[10px] uppercase font-bold">v6.2-ELIXIR</span>
+                  </div>
+                  <span class="font-body-sm text-xs text-on-surface-variant">Maintainer: <strong class="text-on-surface font-medium">KernelPanic</strong></span>
+                </div>
+              </div>
+
+              <!-- Android Version -->
+              <div class="lg:col-span-2 flex items-center gap-2">
+                <span class="lg:hidden font-label-mono-sm text-xs text-on-surface-variant uppercase">Version:</span>
+                <span class="px-2.5 py-1 rounded bg-surface-container font-label-mono-sm text-xs text-on-surface font-semibold">
+                  Android 15
+                </span>
+                <span class="font-label-mono-sm text-[10px] uppercase text-on-surface-variant">Unofficial</span>
+              </div>
+
+              <!-- Build Date & Security Patch -->
+              <div class="lg:col-span-2 flex flex-col font-label-mono-sm text-xs text-on-surface-variant">
+                <span class="">Date: <strong class="text-on-surface font-medium">2026-09-10</strong></span>
+                <span class="text-[11px]">Patch: Aug 2026</span>
+              </div>
+
+              <!-- File Size -->
+              <div class="lg:col-span-1 font-label-mono-sm text-xs text-on-surface-variant">
+                <span class="lg:hidden">Size: </span>2.3 GB
+              </div>
+
+              <!-- Action Buttons -->
+              <div class="lg:col-span-3 flex items-center justify-end gap-2.5 pt-2 lg:pt-0">
+                <button class="toggle-cl-btn px-3 py-2 rounded bg-surface-container hover:bg-surface-container-high text-on-surface font-label-mono-sm text-xs uppercase flex items-center gap-1 transition-all active:scale-95 cursor-pointer" data-id="rising-os">
+                  <span class="">Changelog</span>
+                  <span class="material-symbols-outlined text-[16px] cl-icon transition-transform">expand_more</span>
+                </button>
+                <button onclick="window.openRomModal('rising-os')" class="modal-open-btn btn-cmf-primary px-4 py-2 rounded bg-primary-container hover:bg-primary-container/90 text-on-primary-container font-headline-md text-xs uppercase font-bold tracking-wider flex items-center gap-1.5 transition-all active:scale-95 shadow-md shadow-primary-container/20 cursor-pointer" data-id="rising-os">
+                  <span class="material-symbols-outlined text-[16px]">download</span>
+                  <span class="">Download</span>
+                </button>
+              </div>
+
+            </div>
+
+            <!-- Expandable Changelog Inset -->
+            <div id="cl-box-rising-os" class="hidden border-t border-surface-container-high/60 pt-3 mt-1">
+              <div class="p-3.5 rounded bg-surface-container-lowest font-body-sm text-xs text-on-surface-variant flex flex-col gap-1.5 border border-surface-container-high/40">
+                <span class="font-label-mono-sm text-[10px] uppercase text-primary font-bold">RELEASE NOTES // BUILD HIGHLIGHTS</span>
+                <div class="flex items-start gap-2"><span class="text-primary-container font-bold">›</span><span class="">RisingUI 6.2 with customizable hardware dial indicator HUD</span></div><div class="flex items-start gap-2"><span class="text-primary-container font-bold">›</span><span class="">360Hz touch sampling rate enabled for low-latency gaming</span></div><div class="flex items-start gap-2"><span class="text-primary-container font-bold">›</span><span class="">Built-in ViPER4Android DSP and custom equalizer sound profiles</span></div>
+              </div>
+            </div>
+          </div></div>
+</div>
+</section>
+</main>
+<!-- MINIMALIST DESKTOP/RESPONSIVE FOOTER -->
+<footer class="w-full bg-surface-container-lowest border-t border-surface-container-high/80 py-12">
+<div class="max-w-7xl mx-auto px-6 lg:px-12 flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+<!-- Wordmark & Disclaimer -->
+<div class="flex flex-col max-w-xl space-y-2">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary-container led-dot-active"></span>
+<span class="font-headline-md text-base uppercase font-bold text-on-surface tracking-wider">
+            CMF PHONE 2 PRO <span class="text-primary-container">//</span> galaga
+          </span>
+</div>
+<p class="font-body-sm text-xs text-on-surface-variant leading-relaxed">
+          This is an independent open-source community portal and is not affiliated with, endorsed by, or sponsored by CMF or Nothing Technology Limited. Designed for GitHub Pages.
+        </p>
+</div>
+<!-- Quick Links -->
+<div class="flex flex-wrap items-center gap-6 font-label-mono-sm text-xs uppercase text-on-surface-variant">
+<a class="hover:text-primary-container transition-colors" href="#hero">Back to top</a>
+<a class="hover:text-primary-container transition-colors" href="#specs">Specifications</a>
+<a class="hover:text-primary-container transition-colors" href="#custom-roms">ROMs Archive</a>
+<a class="hover:text-primary-container transition-colors flex items-center gap-1 group" href="https://github.com" rel="noreferrer" target="_blank">
+          GitHub <span class="material-symbols-outlined text-[14px] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">north_east</span>
+</a>
+</div>
+</div>
+</footer>
+<!-- DOWNLOAD MODAL / DETAIL DRAWER -->
+<div aria-hidden="true" class="fixed inset-0 z-50 flex items-center justify-center p-4 modal-backdrop-trans opacity-0 pointer-events-none" id="download-modal" role="dialog">
+<!-- Backdrop with click-to-close -->
+<div class="absolute inset-0 bg-surface-container-lowest/80 backdrop-blur-md cursor-pointer transition-opacity" id="modal-backdrop"></div>
+<!-- Modal Dialog Window -->
+<div class="relative w-full max-w-xl bg-surface-container-low border border-surface-container-high rounded-xl p-6 sm:p-8 flex flex-col gap-5 transform modal-dialog-trans shadow-2xl z-10 scale-95 translate-y-3">
+<!-- Corner mechanical accents -->
+<span class="absolute top-2.5 left-2.5 text-[10px] font-label-mono-sm text-outline-variant select-none">+</span>
+<span class="absolute top-2.5 right-2.5 text-[10px] font-label-mono-sm text-outline-variant select-none">+</span>
+<span class="absolute bottom-2.5 left-2.5 text-[10px] font-label-mono-sm text-outline-variant select-none">+</span>
+<span class="absolute bottom-2.5 right-2.5 text-[10px] font-label-mono-sm text-outline-variant select-none">+</span>
+<!-- Top Bar -->
+<div class="flex items-start justify-between border-b border-surface-container-high pb-4">
+<div>
+<div class="flex items-center gap-2 font-label-mono-sm text-xs text-primary-container font-bold uppercase mb-1">
+<span class="w-2 h-2 rounded-full bg-primary-container led-dot-active"></span>
+<span id="modal-rom-version" class="">VERSION v10.3 // ANDROID 16</span>
+</div>
+<h3 class="font-headline-md text-2xl font-bold uppercase text-on-surface" id="modal-rom-name">Evolution X</h3>
+<p class="font-body-sm text-xs text-on-surface-variant mt-0.5" id="modal-rom-maintainer">Maintainer: JoeyH</p>
+</div>
+<button aria-label="Close modal" class="close-modal-btn w-9 h-9 rounded bg-surface-container-high hover:bg-primary-container hover:text-on-primary-container flex items-center justify-center text-on-surface transition-all active:scale-90 cursor-pointer" id="modal-close-btn" type="button">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<!-- Specs Inset Box -->
+<div class="p-4 rounded-lg bg-surface-container-lowest border border-surface-container-high/80 flex flex-col gap-2.5 font-label-mono-sm text-xs">
+<div class="flex justify-between items-center text-on-surface-variant">
+<span class="">TARGET HARDWARE</span>
+<span class="text-on-surface font-semibold">CMF Phone 2 Pro (galaga)</span>
+</div>
+<div class="flex justify-between items-center text-on-surface-variant">
+<span class="">BUILD RELEASE DATE</span>
+<span class="text-on-surface" id="modal-rom-date">2026-09-30</span>
+</div>
+<div class="flex justify-between items-center text-on-surface-variant">
+<span class="">ARCHIVE FILE SIZE</span>
+<span class="text-on-surface font-semibold text-primary" id="modal-rom-size">2.4 GB</span>
+</div>
+<div class="flex flex-col gap-1 pt-2 border-t border-surface-container-high/60">
+<span class="text-[11px] text-on-surface-variant">SHA256 CHECKSUM:</span>
+<span class="font-mono text-[10px] text-outline break-all select-all bg-surface-container/60 p-1.5 rounded" id="modal-rom-hash">8f92a4e8d356b27e8a9310c14b2d3989c4a8f9024c</span>
+</div>
+<div class="flex flex-col gap-1 pt-1">
+<span class="text-[11px] text-on-surface-variant">KNOWN ISSUES / NOTES:</span>
+<span class="text-[11px] text-on-surface" id="modal-rom-issues">None reported. Complete Dimensity 7300-Pro &amp; rotary dial calibrated.</span>
+</div>
+</div>
+<!-- TeraBox Notice Alert -->
+<div class="p-3.5 rounded bg-surface-container border border-outline-variant/30 flex items-start gap-2.5 text-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-primary-container text-[18px] shrink-0 mt-0.5">cloud</span>
+<span class="">Hosted externally on verified high-speed TeraBox mirrors. Always confirm SHA256 integrity before fastboot flashing.</span>
+</div>
+<!-- CTA Action -->
+<a class="btn-cmf-primary w-full py-3.5 px-4 rounded bg-primary-container hover:bg-primary-container/90 text-on-primary-container font-headline-md text-sm font-bold tracking-wider uppercase text-center flex items-center justify-center gap-2 transition-all active:scale-95 shadow-lg shadow-primary-container/20 cursor-pointer" href="https://terabox.com/s/cmf2pro-evox" id="modal-download-link" rel="noreferrer" target="_blank">
+<span class="material-symbols-outlined text-[18px]">cloud_download</span>
+        Download via TeraBox Mirror
+      </a>
+</div>
+</div>
+<!-- CLIENT SCRIPTS: RESPONSIVE TOGGLES & ROMS CONTROLLER -->
+<script>
+    (function() {
+      // Mobile header toggle
+      const mobileToggle = document.getElementById('mobile-toggle');
+      const mobileMenu = document.getElementById('mobile-menu');
+      if (mobileToggle && mobileMenu) {
+        mobileToggle.addEventListener('click', () => {
+          mobileMenu.classList.toggle('hidden');
+        });
+      }
+
+      // JSON dataset configured for CMF Phone 2 Pro (galaga)
+      const romsData = [
+        {
+          id: "evo-x",
+          name: "Evolution X",
+          version: "v10.3",
+          android: "16",
+          tags: ["android-16", "official"],
+          maintainer: "JoeyH",
+          buildDate: "2026-09-30",
+          securityPatch: "Sep 2026",
+          fileSize: "2.4 GB",
+          checksum: "8f92a4e8d356b27e8a9310c14b2d3989c4a8f9024c",
+          downloadUrl: "https://terabox.com/s/cmf2pro-evox",
+          knownIssues: "None reported. Complete Dimensity 7300-Pro & rotary dial calibrated.",
+          changelog: [
+            "Upstream Android 16 QPR1 r14 merge",
+            "Custom hardware dial mapped to volume and camera ISO stops",
+            "Target codename galaga unified device tree integration",
+            "SafetyNet / Play Integrity MEETS_STRONG verified"
+          ]
+        },
+        {
+          id: "lineage-22",
+          name: "LineageOS 22.1",
+          version: "v22.1",
+          android: "15",
+          tags: ["android-15", "unofficial"],
+          maintainer: "GalagaDev Team",
+          buildDate: "2026-09-22",
+          securityPatch: "Sep 2026",
+          fileSize: "1.8 GB",
+          checksum: "4b7199c27ee9801ad4029df49c48b201a4e1019a",
+          downloadUrl: "https://terabox.com/s/cmf2pro-lineage22",
+          knownIssues: "Hotspot 6GHz requires toggle after fresh reboot.",
+          changelog: [
+            "Pure vanilla LineageOS tree without preinstalled GApps",
+            "Direct hardware dial sysfs kernel bindings",
+            "Standby battery consumption reduced by 14%"
+          ]
+        },
+        {
+          id: "pixel-os",
+          name: "PixelOS",
+          version: "v15.0",
+          android: "15",
+          tags: ["android-15", "official"],
+          maintainer: "PixelTeam",
+          buildDate: "2026-09-18",
+          securityPatch: "Aug 2026",
+          fileSize: "2.1 GB",
+          checksum: "1198cfa0293eb47189cbb1092efd489b02a39c51",
+          downloadUrl: "https://terabox.com/s/cmf2pro-pixelos",
+          knownIssues: "None. Now Playing and Pixel Cinematic Wallpapers functional.",
+          changelog: [
+            "Pixel 9 Pro feature parity with Sony RAW10 camera calibration",
+            "Google Photos backup spoofing support included",
+            "Smooth adaptive refresh rate locking (30/60/90/120Hz)"
+          ]
+        },
+        {
+          id: "rising-os",
+          name: "RisingOS Revived",
+          version: "v6.2-ELIXIR",
+          android: "15",
+          tags: ["android-15", "unofficial"],
+          maintainer: "KernelPanic",
+          buildDate: "2026-09-10",
+          securityPatch: "Aug 2026",
+          fileSize: "2.3 GB",
+          checksum: "77aa33bb9021ddfa881923cc819200aa91238491",
+          downloadUrl: "https://terabox.com/s/cmf2pro-risingos",
+          knownIssues: "Gaming touch overclock uses extra battery under high load.",
+          changelog: [
+            "RisingUI 6.2 with customizable hardware dial indicator HUD",
+            "360Hz touch sampling rate enabled for low-latency gaming",
+            "Built-in ViPER4Android DSP and custom equalizer sound profiles"
+          ]
+        }
+      ];
+
+      const container = document.getElementById('roms-list-container');
+      const modal = document.getElementById('download-modal');
+      const modalBackdrop = document.getElementById('modal-backdrop');
+      const modalCloseBtn = document.getElementById('modal-close-btn');
+
+      // Global functions exposed to window for robust inline fallback
+      window.openRomModal = function(romId) {
+        if (!modal) return;
+        const rom = romsData.find(r => r.id === romId);
+        if (!rom) return;
+
+        const nameEl = document.getElementById('modal-rom-name');
+        const verEl = document.getElementById('modal-rom-version');
+        const maintEl = document.getElementById('modal-rom-maintainer');
+        const dateEl = document.getElementById('modal-rom-date');
+        const sizeEl = document.getElementById('modal-rom-size');
+        const hashEl = document.getElementById('modal-rom-hash');
+        const issuesEl = document.getElementById('modal-rom-issues');
+        const linkEl = document.getElementById('modal-download-link');
+
+        if (nameEl) nameEl.textContent = rom.name;
+        if (verEl) verEl.textContent = `VERSION ${rom.version} // ANDROID ${rom.android}`;
+        if (maintEl) maintEl.textContent = `Maintainer: ${rom.maintainer}`;
+        if (dateEl) dateEl.textContent = rom.buildDate;
+        if (sizeEl) sizeEl.textContent = rom.fileSize;
+        if (hashEl) hashEl.textContent = rom.checksum;
+        if (issuesEl) issuesEl.textContent = rom.knownIssues;
+        if (linkEl) linkEl.href = rom.downloadUrl;
+
+        // Open modal with smooth transition
+        modal.classList.remove('opacity-0', 'pointer-events-none');
+        modal.classList.add('opacity-100');
+        modal.setAttribute('aria-hidden', 'false');
+
+        const dialog = modal.querySelector('.modal-dialog-trans');
+        if (dialog) {
+          dialog.classList.remove('scale-95', 'translate-y-3');
+          dialog.classList.add('scale-100', 'translate-y-0');
+        }
+      };
+
+      window.closeRomModal = function() {
+        if (!modal) return;
+        modal.classList.add('opacity-0');
+        modal.classList.remove('opacity-100');
+        modal.setAttribute('aria-hidden', 'true');
+
+        const dialog = modal.querySelector('.modal-dialog-trans');
+        if (dialog) {
+          dialog.classList.remove('scale-100', 'translate-y-0');
+          dialog.classList.add('scale-95', 'translate-y-3');
+        }
+
+        setTimeout(() => {
+          modal.classList.add('pointer-events-none');
+        }, 300);
+      };
+
+      // Modal close event attachments
+      if (modalCloseBtn) {
+        modalCloseBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          window.closeRomModal();
+        });
+      }
+
+      if (modalBackdrop) {
+        modalBackdrop.addEventListener('click', function(e) {
+          e.preventDefault();
+          window.closeRomModal();
+        });
+      }
+
+      // Keyboard ESC key close listener
+      window.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' || e.key === 'Esc') {
+          if (modal && !modal.classList.contains('pointer-events-none')) {
+            window.closeRomModal();
+          }
+        }
+      });
+
+      function renderRoms(filter = 'all') {
+        if (!container) return;
+        container.innerHTML = '';
+
+        const filtered = romsData.filter(rom => {
+          if (filter === 'all') return true;
+          return rom.tags.includes(filter);
+        });
+
+        if (filtered.length === 0) {
+          container.innerHTML = `
+            <div class="p-8 text-center bg-surface-container rounded border border-surface-container-high">
+              <p class="font-label-mono-sm text-xs text-on-surface-variant uppercase">No builds matched filter criteria.</p>
+            </div>
+          `;
+          return;
+        }
+
+        filtered.forEach(rom => {
+          const card = document.createElement('div');
+          card.className = "p-5 rounded bg-surface-container-low border border-surface-container-high hover:border-primary-container/60 hover:bg-surface-container/70 transition-all duration-300 flex flex-col gap-4 shadow-sm hover:shadow-lg hover:shadow-primary-container/5";
+          
+          card.innerHTML = `
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-center">
+              
+              <!-- ROM & Maintainer -->
+              <div class="lg:col-span-4 flex items-center gap-3.5">
+                <div class="w-11 h-11 rounded bg-surface-container-high flex items-center justify-center font-headline-md text-base font-bold text-primary-container border border-surface-container-highest group-hover:scale-105 transition-transform">
+                  ${rom.name.charAt(0)}
+                </div>
+                <div class="flex flex-col">
+                  <div class="flex items-center gap-2">
+                    <h3 class="font-headline-md text-base text-on-surface font-bold">${rom.name}</h3>
+                    <span class="px-1.5 py-0.5 rounded bg-surface-container-highest text-primary font-label-mono-sm text-[10px] uppercase font-bold">${rom.version}</span>
+                  </div>
+                  <span class="font-body-sm text-xs text-on-surface-variant">Maintainer: <strong class="text-on-surface font-medium">${rom.maintainer}</strong></span>
+                </div>
+              </div>
+
+              <!-- Android Version -->
+              <div class="lg:col-span-2 flex items-center gap-2">
+                <span class="lg:hidden font-label-mono-sm text-xs text-on-surface-variant uppercase">Version:</span>
+                <span class="px-2.5 py-1 rounded bg-surface-container font-label-mono-sm text-xs text-on-surface font-semibold">
+                  Android ${rom.android}
+                </span>
+                <span class="font-label-mono-sm text-[10px] uppercase ${rom.tags.includes('official') ? 'text-primary' : 'text-on-surface-variant'}">${rom.tags.includes('official') ? 'Official' : 'Unofficial'}</span>
+              </div>
+
+              <!-- Build Date & Security Patch -->
+              <div class="lg:col-span-2 flex flex-col font-label-mono-sm text-xs text-on-surface-variant">
+                <span>Date: <strong class="text-on-surface font-medium">${rom.buildDate}</strong></span>
+                <span class="text-[11px]">Patch: ${rom.securityPatch}</span>
+              </div>
+
+              <!-- File Size -->
+              <div class="lg:col-span-1 font-label-mono-sm text-xs text-on-surface-variant">
+                <span class="lg:hidden">Size: </span>${rom.fileSize}
+              </div>
+
+              <!-- Action Buttons -->
+              <div class="lg:col-span-3 flex items-center justify-end gap-2.5 pt-2 lg:pt-0">
+                <button class="toggle-cl-btn px-3 py-2 rounded bg-surface-container hover:bg-surface-container-high text-on-surface font-label-mono-sm text-xs uppercase flex items-center gap-1 transition-all active:scale-95 cursor-pointer" data-id="${rom.id}">
+                  <span>Changelog</span>
+                  <span class="material-symbols-outlined text-[16px] cl-icon transition-transform">expand_more</span>
+                </button>
+                <button onclick="window.openRomModal('${rom.id}')" class="modal-open-btn btn-cmf-primary px-4 py-2 rounded bg-primary-container hover:bg-primary-container/90 text-on-primary-container font-headline-md text-xs uppercase font-bold tracking-wider flex items-center gap-1.5 transition-all active:scale-95 shadow-md shadow-primary-container/20 cursor-pointer" data-id="${rom.id}">
+                  <span class="material-symbols-outlined text-[16px]">download</span>
+                  <span>Download</span>
+                </button>
+              </div>
+
+            </div>
+
+            <!-- Expandable Changelog Inset -->
+            <div id="cl-box-${rom.id}" class="hidden border-t border-surface-container-high/60 pt-3 mt-1">
+              <div class="p-3.5 rounded bg-surface-container-lowest font-body-sm text-xs text-on-surface-variant flex flex-col gap-1.5 border border-surface-container-high/40">
+                <span class="font-label-mono-sm text-[10px] uppercase text-primary font-bold">RELEASE NOTES // BUILD HIGHLIGHTS</span>
+                ${rom.changelog.map(line => `<div class="flex items-start gap-2"><span class="text-primary-container font-bold">›</span><span>${line}</span></div>`).join('')}
+              </div>
+            </div>
+          `;
+          container.appendChild(card);
+        });
+
+        attachCardHandlers();
+      }
+
+      function attachCardHandlers() {
+        // Changelog toggles
+        document.querySelectorAll('.toggle-cl-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const id = btn.getAttribute('data-id');
+            const box = document.getElementById(`cl-box-${id}`);
+            const icon = btn.querySelector('.cl-icon');
+            if (box) {
+              const isHidden = box.classList.contains('hidden');
+              box.classList.toggle('hidden');
+              if (icon) {
+                icon.textContent = isHidden ? 'expand_less' : 'expand_more';
+              }
+            }
+          });
+        });
+
+        // Direct Modal triggers delegation
+        document.querySelectorAll('.modal-open-btn').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const id = btn.getAttribute('data-id');
+            window.openRomModal(id);
+          });
+        });
+      }
+
+      // Filter tabs interaction
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.filter-btn').forEach(b => {
+            b.classList.remove('bg-primary-container', 'text-on-primary-container', 'font-bold', 'shadow-md', 'shadow-primary-container/20');
+            b.classList.add('bg-surface-container-high', 'text-on-surface-variant');
+          });
+          btn.classList.add('bg-primary-container', 'text-on-primary-container', 'font-bold', 'shadow-md', 'shadow-primary-container/20');
+          btn.classList.remove('bg-surface-container-high', 'text-on-surface-variant');
+
+          const filter = btn.getAttribute('data-filter');
+          renderRoms(filter);
+        });
+      });
+
+      // Initial build render on DOM load
+      renderRoms('all');
+    })();
+  </script>
+
+
+</body></html>
